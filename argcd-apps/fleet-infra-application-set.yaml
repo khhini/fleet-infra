@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: fleet-infra-application-set
+  namespace: argocd
+spec:
+  generators:
+  - clusters:
+      selector:
+        matchLabels:
+          env: dev
+  template:
+    metadata:
+      name: 'fleet-infra'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/khhini/fleet-infra.git
+        targetRevision: HEAD
+        path: 'clusters/bootstrap/overlays/core-system'
+      destination:
+        server: '{{server}}'
+        namespace: argocd

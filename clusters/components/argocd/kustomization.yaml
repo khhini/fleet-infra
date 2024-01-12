@@ -1,0 +1,6 @@
+namespace: argocd
+
+helmCharts:
+  - name: argo-cd
+    releaseName: argo-cd
+    repo: https://argoproj.github.io/argo-helm
