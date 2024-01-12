@@ -1,6 +1,0 @@
-resources:
-  - ../../base
-
-namespace: argocd
-
-namePrefix: fleet-infra-

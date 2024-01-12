@@ -1,0 +1,27 @@
+resources:
+  - ../../base
+
+namespace: argocd
+
+patches:
+  - target:
+      kind: ApplicationSet
+      name: application-set
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: ingress-nginx-application-set
+      - op: replace
+        path: /spec/template/metadata/name
+        value: ingress-nginx
+      - op: replace
+        path: /spec/template/spec/source
+        value:
+          chart: ingress-nginx
+          targetRevision: 4.9.0
+          repoURL: https://kubernetes.github.io/ingress-nginx
+          helm:
+            releaseName: ingress-nginx
+      - op: replace
+        path: /spec/template/spec/destination/namespace
+        value: ingress-nginx

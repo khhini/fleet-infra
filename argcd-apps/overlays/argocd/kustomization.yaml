@@ -1,0 +1,28 @@
+resources:
+  - ../../base
+
+namespace: argocd
+
+patches:
+  - target:
+      kind: ApplicationSet
+      name: application-set
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: argocd-application-set
+      - op: replace
+        path: /spec/template/metadata/name
+        value: argocd
+      - op: replace
+        path: /spec/template/spec/source
+        value:
+          chart: argo-cd
+          targetRevision: 5.52.1
+          repoURL: https://argoproj.github.io/argo-helm
+          helm:
+            releaseName: argo-cd
+            values: |-
+              configs:
+                cm:
+                  kustomize.buildOptions: --enable-helm
