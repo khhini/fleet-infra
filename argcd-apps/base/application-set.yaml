@@ -1,8 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: fleet-infra-application-set
-  namespace: argocd
+  name: application-set
 spec:
   generators:
   - clusters:

@@ -4,3 +4,7 @@ helmCharts:
   - name: argo-cd
     releaseName: argo-cd
     repo: https://argoproj.github.io/argo-helm
+    valuesInline:
+      configs:
+        cm:
+          kustomize.buildOptions: --enable-helm
