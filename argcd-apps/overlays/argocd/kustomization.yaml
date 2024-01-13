@@ -26,3 +26,12 @@ patches:
               configs:
                 cm:
                   kustomize.buildOptions: --enable-helm
+              notifications:
+                cm:
+                  trigger.sync-operation-changed: |
+                    - when: status.operationState.phase in ['Success']
+                      send: [github-commit-status]
+                    - when: status.operationState.phase in ['Running']
+                      send: [github-commit-status]
+                    - when: status.operationState.phase in ['Error', 'Failed']
+                      send: [github-commit-status]
