@@ -8,36 +8,36 @@ helmCharts:
       configs:
         cm:
           kustomize.buildOptions: --enable-helm
-      notifications:
-        triggers:
-          trigger.on-deployed: |
-            - description: Application is synced and healthy. Triggered once per commit.
-              oncePer: app.status.sync.revision
-              send:
-              - github-commit-status
-              when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
-          trigger.on-health-degraded: |
-            - description: Application has degraded
-              send:
-              - github-commit-status
-              when: app.status.health.status == 'Degraded'
-          trigger.on-sync-failed: |
-            - description: Application syncing has failed
-              send:
-              - github-commit-status
-              when: app.status.operationState.phase in ['Error', 'Failed']
-          trigger.on-sync-running: |
-            - description: Application is being synced
-              send:
-              - github-commit-status
-              when: app.status.operationState.phase in ['Running']
-          trigger.on-sync-status-unknown: |
-            - description: Application status is 'Unknown'
-              send:
-              - github-commit-status
-              when: app.status.sync.status == 'Unknown'
-          trigger.on-sync-succeeded: |
-            - description: Application syncing has succeeded
-              send:
-              - github-commit-status
-              when: app.status.operationState.phase in ['Succeeded']
+      # notifications:
+      #   triggers:
+      #     trigger.on-deployed: |
+      #       - description: Application is synced and healthy. Triggered once per commit.
+      #         oncePer: app.status.sync.revision
+      #         send:
+      #         - github-commit-status
+      #         when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
+      #     trigger.on-health-degraded: |
+      #       - description: Application has degraded
+      #         send:
+      #         - github-commit-status
+      #         when: app.status.health.status == 'Degraded'
+      #     trigger.on-sync-failed: |
+      #       - description: Application syncing has failed
+      #         send:
+      #         - github-commit-status
+      #         when: app.status.operationState.phase in ['Error', 'Failed']
+      #     trigger.on-sync-running: |
+      #       - description: Application is being synced
+      #         send:
+      #         - github-commit-status
+      #         when: app.status.operationState.phase in ['Running']
+      #     trigger.on-sync-status-unknown: |
+      #       - description: Application status is 'Unknown'
+      #         send:
+      #         - github-commit-status
+      #         when: app.status.sync.status == 'Unknown'
+      #     trigger.on-sync-succeeded: |
+      #       - description: Application syncing has succeeded
+      #         send:
+      #         - github-commit-status
+      #         when: app.status.operationState.phase in ['Succeeded']
