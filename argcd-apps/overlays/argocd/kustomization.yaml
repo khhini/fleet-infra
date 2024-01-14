@@ -17,21 +17,6 @@ patches:
       - op: replace
         path: /spec/template/spec/source
         value:
-          chart: argo-cd
-          targetRevision: 5.52.1
-          repoURL: https://argoproj.github.io/argo-helm
-          helm:
-            releaseName: argo-cd
-            values: |-
-              configs:
-                cm:
-                  kustomize.buildOptions: --enable-helm
-              notifications:
-                cm:
-                  trigger.sync-operation-changed: |
-                    - when: status.operationState.phase in ['Success']
-                      send: [github-commit-status]
-                    - when: status.operationState.phase in ['Running']
-                      send: [github-commit-status]
-                    - when: status.operationState.phase in ['Error', 'Failed']
-                      send: [github-commit-status]
+          targetRevision: HEAD
+          path: clusters/components/argocd/
+          repoURL: https://github.com/khhini/fleet-infra.git
