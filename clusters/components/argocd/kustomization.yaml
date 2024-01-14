@@ -8,3 +8,12 @@ helmCharts:
       configs:
         cm:
           kustomize.buildOptions: --enable-helm
+      notifications:
+        cm:
+          trigger.sync-operation-change: |
+            - when: app.status.operationState.phase in ['Succeeded']
+              send: [github-commit-status]
+            - when: app.status.operationState.phase in ['Running']
+              send: [github-commit-status]
+            - when: app.status.operationState.phase in ['Error', 'Failed']
+              send: [github-commit-status]
